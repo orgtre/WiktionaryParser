@@ -277,9 +277,9 @@ class WiktionaryParser(object):
             json_obj_list.append(data_obj.to_json())
         return json_obj_list
 
-    def fetch(self, word, language=None, old_id=None):
+    def fetch(self, word, language=None, old_id=None, headers=None):
         language = self.language if not language else language
-        response = self.session.get(self.url.format(word), params={'oldid': old_id})
+        response = self.session.get(self.url.format(word), params={'oldid': old_id}, headers=headers)
         self.soup = BeautifulSoup(response.text.replace('>\n<', '><'), 'html.parser')
         self.current_word = word
         self.clean_html()
